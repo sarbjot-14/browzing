@@ -7,7 +7,6 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 import 'data.dart';
 import 'models/Item.dart';
 
-/// A Calculator.
 class Browzing extends StatefulWidget {
   static const routeName = '/browzing';
 

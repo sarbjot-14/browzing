@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
+import 'dataHolder.dart';
+
 class ImageWidget extends StatefulWidget {
   int index = 0;
   ImageWidget({this.index});
@@ -15,16 +17,27 @@ class _ImageState extends State<ImageWidget> {
   Uint8List imageFile = null;
 
   void loadImage() {
-    print("load image called");
     int MAX_SIZE = 4 * 1024 * 1024;
-    print("current indeex is " + widget.index.toString() + '.jpg');
-    ref.child(widget.index.toString() + '.jpg').getData(MAX_SIZE).then((data) {
-      setState(() {
-        imageFile = data;
+    //print("current indeex is " + widget.index.toString() + '.jpg');
+    if (!requestedIndexes.contains(widget.index)) {
+      ref
+          .child(widget.index.toString() + '.jpg')
+          .getData(MAX_SIZE)
+          .then((data) {
+        if (mounted) {
+          setState(() {
+            imageFile = data;
+          });
+        }
+
+        imageData.putIfAbsent(widget.index, () {
+          return data;
+        });
+      }).catchError((onError) {
+        print("error is " + onError.toString());
       });
-    }).catchError((onError) {
-      print("error is " + onError.toString());
-    });
+    }
+    requestedIndexes.add(widget.index);
   }
 
   Widget getImage() {
@@ -37,9 +50,14 @@ class _ImageState extends State<ImageWidget> {
 
   @override
   void initState() {
-    print("init state is called");
-    loadImage();
     super.initState();
+    //print("init state is called");
+    if (!imageData.containsKey(widget.index)) {
+      loadImage();
+    } else {
+      //print(imageData);
+      imageFile = imageData[widget.index];
+    }
   }
 
   @override
