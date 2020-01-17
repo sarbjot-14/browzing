@@ -12,7 +12,11 @@ dependencies:
     sdk: flutter
   flutter_widgets: ^0.1.9
   firebase_storage: ^3.1.1
-
+  firebase: ^7.2.0
+  firebase_core: ^0.4.0+9
+  cloud_firestore: ^0.12.9+5
+  firebase_analytics: ^5.0.2
+  cached_network_image: ^2.0.0
 
 dev_dependencies:
   flutter_test:

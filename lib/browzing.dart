@@ -1,5 +1,8 @@
 library browzing;
 
+import 'dart:typed_data';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
@@ -9,15 +12,52 @@ import 'models/Item.dart';
 /// A Calculator.
 class Browzing extends StatefulWidget {
   static const routeName = '/browzing';
+
   @override
   _BrowzingState createState() => _BrowzingState();
 }
 
 class _BrowzingState extends State<Browzing> {
   VisibilityDetectorController controller = VisibilityDetectorController();
-
+  int currentIndex = 1;
   int credits = 0;
   List<Item> itemList = new Data().itemList;
+  //final ref = FirebaseStorage.instance.ref().child('allbirds');
+  StorageReference ref = FirebaseStorage.instance.ref().child('shoes');
+  Uint8List imageFile = null;
+  void loadImage() {
+    print("load image called");
+    int MAX_SIZE = 4 * 1024 * 1024;
+    print("current indeex is " + currentIndex.toString() + '.jpg');
+    ref.child(currentIndex.toString() + '.jpg').getData(MAX_SIZE).then((data) {
+      setState(() {
+        imageFile = data;
+      });
+    }).catchError((onError) {
+      print("error is " + onError.toString());
+    });
+  }
+
+  Widget getImage() {
+    return imageFile != null
+        ? Image.memory(imageFile, fit: BoxFit.cover)
+        : Center(
+            child: Text('loading'),
+          );
+  }
+
+  void didUpdateWidget(Widget oldWidget) {
+    print("update is called");
+    loadImage();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    print("init state is called");
+    loadImage();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +88,15 @@ class _BrowzingState extends State<Browzing> {
               return new VisibilityDetector(
                 key: Key(itemList[index].id),
                 onVisibilityChanged: (VisibilityInfo info) {
-                  print('${info.visibleFraction} and ${itemList[index].id}');
+                  //print('${info.visibleFraction} and ${itemList[index].id}');
                   if (!itemList[index].seen) {
-                    if (info.visibleFraction > 0.5) {
+                    if (info.visibleFraction > 0.4) {
                       itemList[index].seenEnough++;
                       if (itemList[index].seenEnough >= 3) {
                         setState(() {
                           itemList[index].seen = true;
                           credits++;
+                          currentIndex = index + 1;
                         });
                       }
                     }
@@ -76,7 +117,7 @@ class _BrowzingState extends State<Browzing> {
                           subtitle: Text(itemList[index].id),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(5, 190, 5, 190),
+                          child: getImage(),
                         ),
                         ButtonBar(
                           children: <Widget>[

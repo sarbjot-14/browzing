@@ -65,16 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     _secondPage(context, Browzing());
-//    final Result = await Navigator.push(
-//        context,
-//        MaterialPageRoute(
-//          builder: (context) => Browzing(),
-//        ));
-    //Navigator.of(context).pushNamed(Browzing.routeName);
-//    setState(() {
-//      _counter = Calculator().addOne(_counter);
-//      //_counter++;
-//    });
   }
 
   @override

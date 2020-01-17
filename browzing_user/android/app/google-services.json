@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "343484200767",
+    "firebase_url": "https://browzing-5c0e5.firebaseio.com",
+    "project_id": "browzing-5c0e5",
+    "storage_bucket": "browzing-5c0e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343484200767:android:94bd00e006964bbc6b858a",
+        "android_client_info": {
+          "package_name": "com.company.browzing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343484200767-84pds01mclvshlerea2lgknuf57nh4kp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBde_lQzpJPuIK79tkH15d5WL3eAyp3bZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343484200767-84pds01mclvshlerea2lgknuf57nh4kp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
