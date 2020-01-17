@@ -1,8 +1,6 @@
 library browzing;
 
-import 'dart:typed_data';
-
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:browzing/imageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
@@ -23,41 +21,6 @@ class _BrowzingState extends State<Browzing> {
   int credits = 0;
   List<Item> itemList = new Data().itemList;
   //final ref = FirebaseStorage.instance.ref().child('allbirds');
-  StorageReference ref = FirebaseStorage.instance.ref().child('shoes');
-  Uint8List imageFile = null;
-  void loadImage() {
-    print("load image called");
-    int MAX_SIZE = 4 * 1024 * 1024;
-    print("current indeex is " + currentIndex.toString() + '.jpg');
-    ref.child(currentIndex.toString() + '.jpg').getData(MAX_SIZE).then((data) {
-      setState(() {
-        imageFile = data;
-      });
-    }).catchError((onError) {
-      print("error is " + onError.toString());
-    });
-  }
-
-  Widget getImage() {
-    return imageFile != null
-        ? Image.memory(imageFile, fit: BoxFit.cover)
-        : Center(
-            child: Text('loading'),
-          );
-  }
-
-  void didUpdateWidget(Widget oldWidget) {
-    print("update is called");
-    loadImage();
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
-  void initState() {
-    print("init state is called");
-    loadImage();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +80,7 @@ class _BrowzingState extends State<Browzing> {
                           subtitle: Text(itemList[index].id),
                         ),
                         Container(
-                          child: getImage(),
+                          child: ImageWidget(index: index + 1),
                         ),
                         ButtonBar(
                           children: <Widget>[

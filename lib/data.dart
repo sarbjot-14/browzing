@@ -17,10 +17,10 @@ class Data {
     Item(id: "12", title: 'yee', seen: false, seenEnough: 0),
     Item(id: "13", title: 'airfe', seen: false, seenEnough: 0),
     Item(id: "14", title: 'rbok', seen: false, seenEnough: 0),
-    Item(id: "15", title: 'kbe', seen: false, seenEnough: 0),
-    Item(id: "16", title: 'm', seen: false, seenEnough: 0),
-    Item(id: "17", title: 'lron james', seen: false, seenEnough: 0),
-    Item(id: "18", title: 'yzies', seen: false, seenEnough: 0),
-    Item(id: "19", title: 'yeie', seen: false, seenEnough: 0),
+//    Item(id: "15", title: 'kbe', seen: false, seenEnough: 0),
+//    Item(id: "16", title: 'm', seen: false, seenEnough: 0),
+//    Item(id: "17", title: 'lron james', seen: false, seenEnough: 0),
+//    Item(id: "18", title: 'yzies', seen: false, seenEnough: 0),
+//    Item(id: "19", title: 'yeie', seen: false, seenEnough: 0),
   ];
 }
